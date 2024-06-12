@@ -18,7 +18,8 @@ Person and trash detection
 The code was tested on 
 
 
-Setup with Conda
+### Setup with Conda
+
 Create Conda environment and install pytorch.
 
 ```bash
