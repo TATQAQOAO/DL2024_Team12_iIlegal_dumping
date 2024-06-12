@@ -15,7 +15,7 @@ The algorithm has two main components:
 Person and trash detection
 
 ## Installation
-The code was tested on 
+The code was tested on Windows
 
 
 ### Setup with Conda
