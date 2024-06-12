@@ -23,7 +23,7 @@ The code was tested on
 Create Conda environment 
 
 ```bash
-conda create -n DID python=3.7
+conda create -n DID python=3.8.19
 conda activate DID
 ```
 
@@ -31,7 +31,7 @@ conda activate DID
 Clone the project and go into the project directory
 ```bash
 git clone https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping.git
-cd DL2024_Team12_iIlegal_dumping/main
+cd DL2024_Team12_iIlegal_dumping/yolov7-main
 ```
 Install necessary python packages using
 ```bash
@@ -39,17 +39,22 @@ pip install -r requirements.txt
 ```
 Install torch and matched torchvision from [pytorch.org](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#install-linux)
 
-The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
+The code was tested using torch 2.2.1 + cuda 11.8 and torchvision==0.17.1
 
-Next you need to install Pytorch. You can use:
+Install Pytorch. You can use:
 
 ```bash
 pip install torch torchvision
 ```
+## Training
+Due to the privacy of the training data, it is not publicly available. For data requests, please contact @gmail.
+
+### Yolov7
 
 ```python
 
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
+```
 
 python detect.py --weights runs\train\exp11\weights\best.pt --source data\detection
 
