@@ -23,6 +23,7 @@ Create Conda environment
 ```bash
 conda create -n DID python=3.8.19
 conda activate DID
+```
 
 
 Clone the project and go into the project directory
