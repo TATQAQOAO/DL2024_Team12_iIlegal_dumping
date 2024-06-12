@@ -14,7 +14,7 @@ The algorithm has two main components:
 
 Person and trash detection
 
-### Installation
+## Installation
 The code was tested on 
 
 
