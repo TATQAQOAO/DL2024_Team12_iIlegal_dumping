@@ -47,7 +47,8 @@ Install Pytorch. You can use:
 pip install torch torchvision
 ```
 ## Training
-Training dataset source
+Training dataset source :
+
 [garbage_yolov7 Image Dataset](https://universe.roboflow.com/sih-2023-ngope/garbage_yolov7)
 
 [worker and walker Image Dataset](https://universe.roboflow.com/001-kylxv/worker-and-walker/dataset/4)
@@ -56,10 +57,10 @@ Training dataset source
 
 [test Image Dataset](https://universe.roboflow.com/practice-mqbqq/test-etoky/dataset/1)
 
-### Yolov7
+### Yolov7 training
+Download yolov7 model [here](https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping/tree/main/yolov7-main)
 
 ```python
-
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
 ```
 
