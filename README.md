@@ -20,15 +20,13 @@ The code was tested on
 
 ### Setup with Conda
 
-Create Conda environment and install pytorch.
+Create Conda environment 
 
 ```bash
 conda create -n DID python=3.7
 conda activate DID
 ```
 
-Install torch and matched torchvision from pytorch.org.
-The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
 
 Clone the project and go into the project directory
 ```bash
@@ -39,6 +37,10 @@ Install necessary python packages using
 ```bash
 pip install -r requirements.txt
 ```
+Install torch and matched torchvision from pytorch.org.
+
+The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
+
 Next you need to install Pytorch. You can use:
 
 ```bash
