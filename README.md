@@ -15,7 +15,19 @@ The algorithm has two main components:
 Person and trash detection
 
 ### Installation
-The code was tested on Ubuntu
+The code was tested on 
+
+
+Setup with Conda
+Create Conda environment and install pytorch.
+
+```bash
+conda create -n DID python=3.7
+conda activate DID
+```
+
+Install torch and matched torchvision from pytorch.org.
+The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
 
 
 
