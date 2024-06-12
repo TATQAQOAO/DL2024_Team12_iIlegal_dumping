@@ -69,7 +69,7 @@ For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_dete
 
 Now we can  track the identities of people and garbage and associate the garbage with person.
 ```python
-python detect.py --weights runs\train\exp1\weights\best.pt --source data\detection
+python detect.py --weights runs\train\expXXX\weights\best.pt --source data\detection
 ```
 
 ## Acknowledgements
