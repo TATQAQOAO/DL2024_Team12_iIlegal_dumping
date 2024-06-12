@@ -37,7 +37,7 @@ Install necessary python packages using
 ```bash
 pip install -r requirements.txt
 ```
-Install torch and matched torchvision from pytorch.org.
+Install torch and matched torchvision from pytorch.org[here](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#install-linux)
 
 The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
 
