@@ -9,11 +9,13 @@ The algorithm has two main components:
 - 
 - 
 
-###DEMO
+### DEMO
 
 
 Person and trash detection
 
+### Installation
+The code was tested on Ubuntu
 
 
 
