@@ -8,13 +8,13 @@ from utils.general import xyxy2xywh
 def split_bag_persons(centers, labels):
     # 将检测结果分成垃圾袋和人
     #print("進來split_bag_person\n")
-    bag_centers = centers[labels == 'backpack']
+    bag_centers = centers[labels == 'garbage']
     person_centers = centers[labels == 'person']
     return bag_centers, person_centers
 
 class SimpleTracker:
     """
-    Location based tracker for person and backpack.
+    Location based tracker for person and garbage.
     Also does location based bag-person association.
     """
 
@@ -29,20 +29,20 @@ class SimpleTracker:
             bag_person_thres: threshold value for initial bag-person association.
         """
         #print("run into SimpleTracke\n ")
-        self.all_centers = {'backpack': OrderedDict(),
+        self.all_centers = {'garbage': OrderedDict(),
                             'person': OrderedDict()}  # Stores seen bounding box centers by object id
-        self.prev_frame_ids = {'backpack': [],
+        self.prev_frame_ids = {'garbage': [],
                                'person': []}  # Stores ids of objects observed in the last frame
 
         self.bag_person_association = dict()  # Maps bag id to bag owner id
         self.bag_person_dist = dict()  # Maps bag id to distance to the bag owner
-        self.instance_count = {'backpack': 0,
-                               'person': 0}  # Counts how many backpack and person have been seen
+        self.instance_count = {'garbage': 0,
+                               'person': 0}  # Counts how many garbage and person have been seen
         self.bag_person_thres = bag_person_thres
         self.self_association_thres = self_association_thres
-        self.prev_frame_kept = {'backpack': False,
+        self.prev_frame_kept = {'garbage': False,
                                 'person': False}  # Tracks if last frame's bounding boxes were kept or ignored
-        self.keep_frame_counter = {'backpack': 0,
+        self.keep_frame_counter = {'garbage': 0,
                                    'person': 0}  # Counts how many frames back object centers have been stored
 
     def update(self, boxes, labels):
@@ -63,40 +63,46 @@ class SimpleTracker:
         bag_bounding_centers, person_bounding_centers = split_bag_persons(centers, labels)
 
         self.frame2frame_association(person_bounding_centers, 'person')
-        self.frame2frame_association(bag_bounding_centers, 'backpack')
+        self.frame2frame_association(bag_bounding_centers, 'garbage')
         self.update_bag_person_association()
+        # Initialize a dictionary to store unattended status
+        self.unattended_status = {}
 
+        # Process each garbage and determine if it's unattended
+        for garbage_id in self.prev_frame_ids['garbage']:
+            unattended = self.is_unattended(garbage_id)
+            self.unattended_status[garbage_id] = unattended
         print(self.prev_frame_ids)
     def map_label(self, label):
         """
         Map YOLOv7 integer label to string label for tracking.
         """
-        label_map = {0: 'person', 24: 'backpack'}  # 更新此映射以匹配您的標籤編號 @@
+        label_map = {6: 'person', 2: 'garbage'}  # 更新此映射以匹配您的標籤編號 @@
         return label_map.get(label, 'unknown')
 
-    def is_unattended(self, backpack_id):
+    def is_unattended(self, garbage_id):
         # type: (int) -> bool
         """
         Checks if a given bag misses an owner or  has it's owner at a distance larger that the bag_person_thres
             threshold.
         Args:
-            backpack_id:
+            garbage_id:
         Returns:
             True if the bag does not have an owner or is too far away from its owner.
             False otherwise.
         """
         print("進來is_unattended\n")
 
-        person_id = self.bag_person_association[backpack_id]
+        person_id = self.bag_person_association[garbage_id]
         print(person_id,"\n")
         if person_id is None:
             return True
         person_center = self.all_centers['person'][person_id]
-        backpack_center = self.all_centers['backpack'][backpack_id]
+        garbage_center = self.all_centers['garbage'][garbage_id]
         # print(person_center,"\n")
-        # print(backpack_center,"\n")
+        # print(garbage_center,"\n")
 
-        if np.sqrt(((person_center - backpack_center) ** 2).sum()) > self.bag_person_thres:
+        if np.sqrt(((person_center - garbage_center) ** 2).sum()) > self.bag_person_thres:
             return True
 
         return False
@@ -104,7 +110,7 @@ class SimpleTracker:
     def frame2frame_association(self, new_centers, tag):
         # type: (np.ndarray, str) -> None
         """
-        Associates centers of 'person' and 'backpack' observed in the last frame with centers observed in the current
+        Associates centers of 'person' and 'garbage' observed in the last frame with centers observed in the current
         frame.
         The association is done forward in time, i.e. we find the closest center in the new frame for each center
         observed in the previous frame.
@@ -117,7 +123,7 @@ class SimpleTracker:
 
         Args:
             new_centers: Array of bounding box centers detected in the current frame.
-            tag: Either 'person' or 'backpack'.
+            tag: Either 'person' or 'garbage'.
         """
         print("frame2frame_association\n")
         frame_ids = []
@@ -189,31 +195,31 @@ class SimpleTracker:
     def update_bag_person_association(self):
         # type: () -> None
         """
-        Iterates over all detected backpack in the last frame (current frame) and updates the bag-person association and
+        Iterates over all detected garbage in the last frame (current frame) and updates the bag-person association and
         the bag person distance.
         """
         print("run into update_bag_person_association\n")
-        for backpack_id in self.prev_frame_ids['backpack']:
-            print("1:",backpack_id,"/n")
-            if backpack_id not in self.bag_person_association or self.bag_person_association[backpack_id] is None:
+        for garbage_id in self.prev_frame_ids['garbage']:
+            print("1:",garbage_id,"/n")
+            if garbage_id not in self.bag_person_association or self.bag_person_association[garbage_id] is None:
                 # Case were the bag has not previous owner
-                person_id, dist = self.find_closest_person_to_bag(backpack_id)
-                self.bag_person_association[backpack_id] = person_id
-                self.bag_person_dist[backpack_id] = dist
-                print(f"新包: backpack_id={backpack_id}, person_id={person_id}, dist={dist}\n")
-            elif self.bag_person_association[backpack_id] not in self.prev_frame_ids['person']:
-                # Case were the backpack owner as not observed in the current frame
-                self.bag_person_dist[backpack_id] = float('inf')
-                print(f"未找到擁有者: backpack_id={backpack_id}, dist=inf\n")
+                person_id, dist = self.find_closest_person_to_bag(garbage_id)
+                self.bag_person_association[garbage_id] = person_id
+                self.bag_person_dist[garbage_id] = dist
+                print(f"新包: garbage_id={garbage_id}, person_id={person_id}, dist={dist}\n")
+            elif self.bag_person_association[garbage_id] not in self.prev_frame_ids['person']:
+                # Case were the garbage owner as not observed in the current frame
+                self.bag_person_dist[garbage_id] = float('inf')
+                print(f"未找到擁有者: garbage_id={garbage_id}, dist=inf\n")
             else:
                 # Case were both bag and owner were observed in the current frame
-                bag_person_vector = (self.all_centers['person'][self.bag_person_association[backpack_id]] -
-                                     self.all_centers['backpack'][backpack_id])
-                self.bag_person_dist[backpack_id] = np.sqrt(np.power(bag_person_vector, 2).sum())
-                print(f"已關聯: backpack_id={backpack_id}, person_id={self.bag_person_association[backpack_id]}, dist={self.bag_person_dist[backpack_id]}\n")
+                bag_person_vector = (self.all_centers['person'][self.bag_person_association[garbage_id]] -
+                                     self.all_centers['garbage'][garbage_id])
+                self.bag_person_dist[garbage_id] = np.sqrt(np.power(bag_person_vector, 2).sum())
+                print(f"已關聯: garbage_id={garbage_id}, person_id={self.bag_person_association[garbage_id]}, dist={self.bag_person_dist[garbage_id]}\n")
         print("bag_person_association:", self.bag_person_association)
         print("bag_person_dist:", self.bag_person_dist)
-    def find_closest_person_to_bag(self, backpack_id):
+    def find_closest_person_to_bag(self, garbage_id):
         # type: (int) -> Tuple[Optional[int], float]
         """
         Checks for closest person in the current frame given an id of a detected bag.
@@ -221,20 +227,20 @@ class SimpleTracker:
         bag_person_thres threshold.
 
         Args:
-            backpack_id: Id of a bag observed in the current frame.
+            garbage_id: Id of a bag observed in the current frame.
         Returns:
             person_id: Id of the closest person or None if no person could be found with a distance smaller than
                 bag_person_thres
             distance: Distance in pixels between the person and the bag. Inf if not person could be found.
         """
         print("run into find_closest_person_to_bag\n")
-        backpack_center = self.all_centers['backpack'][backpack_id]
+        garbage_center = self.all_centers['garbage'][garbage_id]
         dists = []
         for person_id in self.prev_frame_ids['person']:
             person_center = self.all_centers['person'][person_id]
-            dist = np.sqrt(np.power(person_center - backpack_center, 2).sum())
+            dist = np.sqrt(np.power(person_center - garbage_center, 2).sum())
             dists.append(dist)
-            print(f"包ID {backpack_id} 與人ID {person_id} 的距離: {dist}")
+            print(f"包ID {garbage_id} 與人ID {person_id} 的距離: {dist}")
         if not self.prev_frame_ids['person']:
             return None, float('inf')
         closest_person_ind = int(np.array(dists).argmin())

@@ -22,6 +22,9 @@ from utils.google_utils import gsutil_getsize
 from utils.metrics import fitness
 from utils.torch_utils import init_torch_seeds
 
+import numpy as np
+
+
 # Settings
 torch.set_printoptions(linewidth=320, precision=5, profile='long')
 np.set_printoptions(linewidth=320, formatter={'float_kind': '{:11.5g}'.format})  # format short g, %precision=5
@@ -251,6 +254,10 @@ def coco80_to_coco91_class():  # converts 80-index (val2014) to 91-index (paper)
          64, 65, 67, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 84, 85, 86, 87, 88, 89, 90]
     return x
 
+# @@
+def add_z_coordinate(centers):
+    return np.concatenate((centers, np.zeros(shape=(centers.shape[0], 1))), axis=1)
+
 
 def xyxy2xywh(x):
     # Convert nx4 boxes from [x1, y1, x2, y2] to [x, y, w, h] where xy1=top-left, xy2=bottom-right
@@ -259,7 +266,12 @@ def xyxy2xywh(x):
     y[:, 1] = (x[:, 1] + x[:, 3]) / 2  # y center
     y[:, 2] = x[:, 2] - x[:, 0]  # width
     y[:, 3] = x[:, 3] - x[:, 1]  # height
-    return y
+
+    # Compute 3D centers @@
+    centers = y[:, 0:2].cpu().numpy() if isinstance(y, torch.Tensor) else y[:, 0:2]
+    centers_3d = add_z_coordinate(centers)
+
+    return centers_3d
 
 
 def xywh2xyxy(x):
