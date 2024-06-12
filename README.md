@@ -77,7 +77,7 @@ python detect.py --weights yolov7.pt --conf 0.25 --img-size 640 --source inferen
 python detect.py --weights yolov7.pt --source data\detection
 ```
 ### Abandoned Garbage Detection
-details, please refer to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection)
+For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and modified its algorithm.
 ## Acknowledgements
 - [YOLOv7](https://github.com/wongkinyiu/yolov7)
 - [abandoned_bag_detection](https://github.com/roym899/abandoned_bag_detection)
