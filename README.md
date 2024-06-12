@@ -60,7 +60,9 @@ Training dataset source :
 ### Yolov7 training
 Download yolov7 model and other details, please refer to [YOLOv7-Training](https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping/tree/main/yolov7-main)
 
-In this project,we used [yolov7.pt](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt)
+In this project, we use [yolov7.pt](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt)
+
+Next we can train yolov7 model
 ```python
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
 ```
