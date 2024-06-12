@@ -23,7 +23,7 @@ Create Conda environment
 ```bash
 conda create -n DID python=3.8.19
 conda activate DID
-```
+
 
 Clone the project and go into the project directory
 ```bash
@@ -64,16 +64,14 @@ Next we can train yolov7 model
 ```python
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
 ```
-### Yolov7 detecting
+### Detecting and tracking
+For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and integrated its algorithm into detect.py.
 
-Now we can detect person and garbage.
+Now we can  track the identities of people and garbage and associate the garbage with person.
 ```python
-
 python detect.py --weights runs\train\exp1\weights\best.pt --source data\detection
-
 ```
-### Abandoned Garbage Detection
-For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and modified its algorithm.
+
 ## Acknowledgements
 - [YOLOv7](https://github.com/wongkinyiu/yolov7)
 - [abandoned_bag_detection](https://github.com/roym899/abandoned_bag_detection)
