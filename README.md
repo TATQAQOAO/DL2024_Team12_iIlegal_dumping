@@ -47,4 +47,14 @@ Next you need to install Pytorch. You can use:
 pip install torch torchvision
 ```
 
+```python
+
+python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
+
+python detect.py --weights runs\train\exp11\weights\best.pt --source data\detection
+
+python detect.py --weights yolov7.pt --conf 0.25 --img-size 640 --source inference\images\horses.jpg
+
+python detect.py --weights yolov7.pt --source data\detection
+```
 
