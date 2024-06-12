@@ -63,7 +63,7 @@ Download yolov7 model. Other details, please refer to [YOLOv7-Training](https://
 In this project, we use [yolov7.pt](https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt)
 Next we can train yolov7 model
 ```python
-python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
+python train.py --weights yolov7.pt --cfg cfg\training\yolov7_data.yaml --data data\final\data.yaml --batch-size 32 --epoch 10
 ```
 ### Detecting and tracking
 For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and integrated its algorithm into yolov7 detect.py.
