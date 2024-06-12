@@ -66,7 +66,7 @@ Next we can train yolov7 model
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
 ```
 ### Detecting and tracking
-For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and integrated its algorithm into detect.py.
+For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and integrated its algorithm into yolov7 detect.py.
 
 Now we can  track the identities of people and garbage and associate the garbage with person.
 ```python
