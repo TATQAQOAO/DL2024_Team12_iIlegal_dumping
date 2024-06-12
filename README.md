@@ -76,3 +76,7 @@ python detect.py --weights runs\train\expXXX\weights\best.pt --source data\detec
 ## Acknowledgements
 - [YOLOv7](https://github.com/wongkinyiu/yolov7)
 - [abandoned_bag_detection](https://github.com/roym899/abandoned_bag_detection)
+- [garbage_yolov7 Image Dataset](https://universe.roboflow.com/sih-2023-ngope/garbage_yolov7)
+- [worker and walker Image Dataset](https://universe.roboflow.com/001-kylxv/worker-and-walker/dataset/4)
+- [Person Image Dataset](https://universe.roboflow.com/project-cop72/person-tylca/dataset/5)
+-[test Image Dataset](https://universe.roboflow.com/practice-mqbqq/test-etoky/dataset/1)
