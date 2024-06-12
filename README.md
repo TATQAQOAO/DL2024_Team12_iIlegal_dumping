@@ -72,7 +72,7 @@ python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data d
 Now we can detect person and garbage.
 ```python
 
-python detect.py --weights runs\train\exp11\weights\best.pt --source data\detection
+python detect.py --weights runs\train\exp1\weights\best.pt --source data\detection
 
 ```
 ### Abandoned Garbage Detection
