@@ -47,7 +47,6 @@ Install Pytorch. You can use:
 pip install torch torchvision
 ```
 ## Training
-Due to the privacy of the training data, it is not publicly available. For data requests, please contact @gmail.
 
 ### Yolov7
 
