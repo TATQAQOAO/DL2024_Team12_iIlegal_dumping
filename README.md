@@ -30,8 +30,19 @@ conda activate DID
 Install torch and matched torchvision from pytorch.org.
 The code was tested using torch 1.11.0+cu113 and torchvision==0.12.0
 
+Clone the project and go into the project directory
+```bash
+git clone https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping.git
+cd DL2024_Team12_iIlegal_dumping/main
+```
+Install necessary python packages using
+```bash
+pip install -r requirements.txt
+```
+Next you need to install Pytorch. You can use:
 
-
-
+```bash
+pip install torch torchvision
+```
 
 
