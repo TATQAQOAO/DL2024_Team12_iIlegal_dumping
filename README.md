@@ -6,8 +6,8 @@ The aim of this project is to develop a computer vision system that analyzes foo
 The model must be capable of performing detection across various locations and environmental conditions.
 
 The algorithm has two main components:
-- A neural network able to detect persons and trash in a single frame 
-- A simple tracker which keeps track of person and trash identities and associates trash with persons.
+- A neural network able to detect persons and garbage in a single frame 
+- A simple tracker which keeps track of person and garbage identities and associates garbage with persons.
 
 ### DEMO
 
@@ -77,7 +77,7 @@ python detect.py --weights yolov7.pt --conf 0.25 --img-size 640 --source inferen
 python detect.py --weights yolov7.pt --source data\detection
 ```
 ### Abandoned Garbage Detection
-
+details, please refer to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection)
 ## Acknowledgements
 - [YOLOv7](https://github.com/wongkinyiu/yolov7)
 - [abandoned_bag_detection](https://github.com/roym899/abandoned_bag_detection)
