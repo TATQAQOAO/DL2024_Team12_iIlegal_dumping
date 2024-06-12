@@ -68,13 +68,11 @@ Next we can train yolov7 model
 ```python
 python train.py --weights yolov7.pt --cfg cfg/training/yolov7_data.yaml --data data/final/data.yaml --batch-size 32 --epoch 10
 ```
+Now we can detect person and garbage.
 ```python
 
 python detect.py --weights runs\train\exp11\weights\best.pt --source data\detection
 
-python detect.py --weights yolov7.pt --conf 0.25 --img-size 640 --source inference\images\horses.jpg
-
-python detect.py --weights yolov7.pt --source data\detection
 ```
 ### Abandoned Garbage Detection
 For the Abandoned Garbage Detection part, we referred to [abandoned_garbage_detection](https://github.com/roym899/abandoned_bag_detection) and modified its algorithm.
