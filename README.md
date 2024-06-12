@@ -57,6 +57,8 @@ Training dataset source :
 
 [test Image Dataset](https://universe.roboflow.com/practice-mqbqq/test-etoky/dataset/1)
 
+You need to download the dataset mentioned above and use the YOLOv7 format.
+
 ### Yolov7 training
 Download yolov7 model and other details, please refer to [YOLOv7-Training](https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping/tree/main/yolov7-main)
 
