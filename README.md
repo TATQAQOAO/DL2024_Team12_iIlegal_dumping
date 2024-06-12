@@ -6,8 +6,8 @@ The aim of this project is to develop a computer vision system that analyzes foo
 The model must be capable of performing detection across various locations and environmental conditions.
 
 The algorithm has two main components:
-- 
-- 
+- A neural network able to detect persons and trash in a single frame 
+- A simple tracker which keeps track of person and trash identities and associates trash with persons.
 
 ### DEMO
 
