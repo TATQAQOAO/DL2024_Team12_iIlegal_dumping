@@ -12,6 +12,7 @@ The algorithm has two main components:
 ### DEMO
 
 Person and trash detection
+![image](https://github.com/TATQAQOAO/DL2024_Team12_iIlegal_dumping/blob/main/final.gif?raw=true)
 
 ## Installation
 The code was tested on Windows
