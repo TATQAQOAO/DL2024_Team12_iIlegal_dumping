@@ -78,3 +78,6 @@ python detect.py --weights yolov7.pt --source data\detection
 ```
 ### Abandoned Garbage Detection
 
+## Acknowledgements
+- [YOLOv7](https://github.com/wongkinyiu/yolov7)
+- [abandoned_bag_detection](https://github.com/roym899/abandoned_bag_detection)
